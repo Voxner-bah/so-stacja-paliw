@@ -1,20 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-/* Glowna struktura stanu stacji */
-typedef struct {
-    Stanowisko stanowiska[LICZBA_STANOWISK];
-    Kasa kasy[LICZBA_KAS];
-    int zajete_miejsca_parkingowe;
-    int aktywni_kierowcy;
-    int max_kierowcow;
-    int czynne_kasy;
-    int godzina_symulacji;
-    int skala_czasu_ms;
-    int stacja_otwarta;
-    int alarm_pozarowy;
-} StanStacji;
+#include "common.h"
 
 /* Ustawienie poczatkowego stanu stacji */
 static void inicjalizuj_stacje(StanStacji *stacja, int max_kierowcow, int skala_ms) {
@@ -63,6 +50,24 @@ int main(int argc, char *argv[]) {
     int skala_ms = 100;
     StanStacji stacja;
 
+    if (argc >= 2) {
+        max_kierowcow = atoi(argv[1]);
+        if (max_kierowcow <= 0 || max_kierowcow > 100) {
+            fprintf(stderr, "Blad: limit kierowcow musi byc w zakresie 1-100.\n");
+            return 1;
+        }
+    }
+
+    if (argc >= 3) {
+        skala_ms = atoi(argv[2]);
+        if (skala_ms <= 0) {
+            fprintf(stderr, "Blad: skala czasu musi byc wieksza od 0.\n");
+            return 1;
+        }
+    }
+
+    inicjalizuj_stacje(&stacja, max_kierowcow, skala_ms);
+    wypisz_stan(&stacja);
 
     return 0;
 }
