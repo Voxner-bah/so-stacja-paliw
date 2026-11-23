@@ -34,6 +34,7 @@ static void inicjalizuj_stacje(StanStacji *stacja, int max_kierowcow, int skala_
     stacja->alarm_pozarowy = 0;
 }
 
+/* Funkcja wypisywania stanu stacji */
 static void wypisz_stan(const StanStacji *stacja) {
     printf("[MAIN PID=%d] Start symulacji stacji paliw\n", getpid());
     printf("Stanowiska: %d (dystrybutory: %d, ladowarki: %d)\n",
@@ -45,9 +46,11 @@ static void wypisz_stan(const StanStacji *stacja) {
            stacja->max_kierowcow, stacja->skala_czasu_ms);
 }
 
+/* main */
 int main(int argc, char *argv[]) {
-    int max_kierowcow = MAX_KIEROWCOW_DOMYSLNIE;
+    
     int skala_ms = 100;
+    int max_kierowcow = MAX_KIEROWCOW_DOMYSLNIE;
     StanStacji stacja;
 
     if (argc >= 2) {
@@ -65,8 +68,8 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
-
     inicjalizuj_stacje(&stacja, max_kierowcow, skala_ms);
+
     wypisz_stan(&stacja);
 
     return 0;
