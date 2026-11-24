@@ -1,12 +1,16 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=gnu99
 
-TARGET = main
+TARGETS = main kasjer
 
-all: $(TARGET)
+all: $(TARGETS)
 
-$(TARGET): main.c common.h
-	$(CC) $(CFLAGS) -o $(TARGET) main.c
+main: main.c common.h
+	$(CC) $(CFLAGS) -o main main.c
+
+
+kasjer: kasjer.c common.h
+	$(CC) $(CFLAGS) -o kasjer kasjer.c
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(TARGETS)
