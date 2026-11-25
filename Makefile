@@ -1,13 +1,15 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=gnu99
 
-TARGETS = main kasjer
+TARGETS = main kierownik kasjer
 
 all: $(TARGETS)
 
 main: main.c common.h
 	$(CC) $(CFLAGS) -o main main.c
 
+kierownik: kierownik.c common.h
+	$(CC) $(CFLAGS) -o kierownik kierownik.c
 
 kasjer: kasjer.c common.h
 	$(CC) $(CFLAGS) -o kasjer kasjer.c
